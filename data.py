@@ -7,7 +7,7 @@ import requests
 import numpy as np
 import pandas as pd
 import yfinance as yf
-from scipy import stats
+from scipy import optimize, stats
 
 import config
 
@@ -86,8 +86,8 @@ def detect_jumps(returns):
 
 
 def calibrate_gbm(diffusive_returns):
-    mu = float(diffusive_returns.mean() * config.TRADING_DAYS_PER_YEAR)
     sigma = float(diffusive_returns.std() * np.sqrt(config.TRADING_DAYS_PER_YEAR))
+    mu = float(diffusive_returns.mean() * config.TRADING_DAYS_PER_YEAR) + 0.5 * sigma ** 2
     return mu, sigma
 
 
@@ -163,8 +163,13 @@ def calibrate_heston(returns, ticker=None):
 
 def calibrate_student_t(all_standardized_returns):
     pooled = np.concatenate(all_standardized_returns)
-    nu, _, _ = stats.t.fit(pooled, floc=0, fscale=1)
-    return float(max(nu, 2.1))
+
+    def neg_log_likelihood(nu):
+        scale = np.sqrt((nu - 2) / nu)
+        return -np.sum(stats.t.logpdf(pooled, nu, loc=0, scale=scale))
+
+    result = optimize.minimize_scalar(neg_log_likelihood, bounds=(2.1, 100), method="bounded")
+    return float(result.x)
 
 
 def calibrate_regime_correlations(returns_aligned, calm_correlation_matrix):
