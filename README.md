@@ -1,7 +1,7 @@
 # Portfolio Risk Management: Tail-Risk Estimation and Kelly Position Sizing Under Stochastic Volatility and Jump-Diffusion Processes
 Informational & educational purposes only. Nothing here is a recommendation, offer, or solicitation to buy, sell, or hold any security. Simulated results and VaR estimates are illustrative only and should not be relied upon for actual investment or risk management decisions. AI helped code my design.
 
-## See the full paper on my website: [Portfolio Risk Management: Tail-Risk Estimation and Kelly Position Sizing Under Stochastic Volatility and Jump-Diffusion Processes](https://alexanderresearchlabs.com/research/optimal-asset-allocation-tail-risk-mitigation)
+## See the full paper on my website: [Portfolio Risk Management: Tail-Risk Estimation and Kelly Position Sizing Under Stochastic Volatility and Jump-Diffusion Processes](https://alexanderresearchlabs.com/research/tail-risk-estimation-and-kelly-position-sizing-under-stochastic-volatility-and-jump-diffusion-processes)
 
 ## License
 
